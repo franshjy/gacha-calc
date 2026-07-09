@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './ZzzPage.css';
-import PolyIcon from '../../assets/zzz_currency_poly.png';
-import MonoIcon from '../../assets/zzz_currency_mono.png';
-import MasterTapeIcon from '../../assets/zzz_currency_mastertape.png';
-import EncryptedTapeIcon from '../../assets/zzz_currency_encryptedtape.png';
+import PolyIcon from '../../assets/zzz/currency-poly.png';
+import MonoIcon from '../../assets/zzz/currency-mono.png';
+import MasterTapeIcon from '../../assets/zzz/currency-master-tape.png';
+import EncryptedTapeIcon from '../../assets/zzz/currency-encrypted-tape.png';
+import ZzzLogoDark from '../../assets/zzz/logo-dark.webp';
+import ZzzLogoLight from '../../assets/zzz/logo-light.webp';
 import { GachaLayout, GachaCard, CurrencyInput, DoublePassContainer, ResultBox } from '../../components/GachaDashboard.jsx';
 
 const ZzzPage = () => {
@@ -55,9 +57,17 @@ const ZzzPage = () => {
 		}
 	};
 
+	const nextGuaranteeProgress = totalSignalSearches % 90;
+
 	return (
-		<GachaLayout themeClass="theme-zzz">
-			<GachaCard title="New Eridu Resources" isPrimary>
+		<GachaLayout
+			themeClass="theme-zzz"
+			eyebrow="Signal search"
+			title="Zenless Zone Zero"
+			lightModeLogoSrc={ZzzLogoLight}
+			darkModeLogoSrc={ZzzLogoDark}
+		>
+			<GachaCard title="Resources" isPrimary>
 				<CurrencyInput
 					label="Polychrome"
 					iconSrc={PolyIcon}
@@ -94,9 +104,14 @@ const ZzzPage = () => {
 				</DoublePassContainer>
 			</GachaCard>
 
-			<GachaCard title="Signal Search Calculations" isResults>
-				<ResultBox label="Limited Searches" value={totalSignalSearches} />
-				<ResultBox label="Limited S-Rank Guarantees" value={guarantees} highlightType="secondary" />
+			<GachaCard title="Result" isResults>
+				<ResultBox label="Limited searches" value={totalSignalSearches} progress={(nextGuaranteeProgress / 90) * 100} progressLabel="Next S-rank cycle progress" />
+				<ResultBox
+					label="S-rank guarantees"
+					value={guarantees}
+					description={`${nextGuaranteeProgress}/90`}
+					highlightType="secondary"
+				/>
 			</GachaCard>
 		</GachaLayout>
 	);

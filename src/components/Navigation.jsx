@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import ThemeIcon from './ThemeIcon.jsx';
 import './Navigation.css';
 
 const Navigation = ({ theme, toggleTheme, setIsDrawerOpen, getNavLinkClass, navLinks }) => {
@@ -7,6 +8,11 @@ const Navigation = ({ theme, toggleTheme, setIsDrawerOpen, getNavLinkClass, navL
 
 	return (
 		<nav className="nav-menu">
+			<Link to="/" className="nav-brand" aria-label="Go to homepage">
+				<span>Gacha Calc</span>
+				<small>pull planner</small>
+			</Link>
+
 			<div className="mobile-nav">
 				<button
 					className="menu-button"
@@ -40,7 +46,7 @@ const Navigation = ({ theme, toggleTheme, setIsDrawerOpen, getNavLinkClass, navL
 				onClick={toggleTheme}
 				aria-label={themeToggleLabel}
 			>
-				{theme === 'light' ? 'Dark mode' : 'Light mode'}
+				<ThemeIcon theme={theme} />
 			</button>
 		</nav>
 	);

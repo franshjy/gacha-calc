@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './HsrPage.css';
-import StellarJadeIcon from '../../assets/hsr_currency_stellarjade.png';
-import OneiricShardIcon from '../../assets/hsr_currency_oneiricshard.png';
-import PassIcon from '../../assets/hsr_currency_pass.png';
-import SpecialPassIcon from '../../assets/hsr_currency_specialpass.png';
+import StellarJadeIcon from '../../assets/hsr/currency-stellar-jade.png';
+import OneiricShardIcon from '../../assets/hsr/currency-oneiric-shard.png';
+import PassIcon from '../../assets/hsr/currency-pass.png';
+import SpecialPassIcon from '../../assets/hsr/currency-special-pass.png';
+import HsrLogo from '../../assets/hsr/logo.webp';
 import { GachaLayout, GachaCard, CurrencyInput, DoublePassContainer, ResultBox } from '../../components/GachaDashboard.jsx';
 
 const HsrPage = () => {
@@ -52,9 +53,16 @@ const HsrPage = () => {
 		}
 	};
 
+	const nextGuaranteeProgress = totalLimitedWarps % 90;
+
 	return (
-		<GachaLayout themeClass="theme-hsr">
-			<GachaCard title="Astral Express Resources" isPrimary>
+		<GachaLayout
+			themeClass="theme-hsr"
+			eyebrow="Warp"
+			title="Honkai: Star Rail"
+			logoSrc={HsrLogo}
+		>
+			<GachaCard title="Resources" isPrimary>
 				<CurrencyInput
 					label="Stellar Jade"
 					iconSrc={StellarJadeIcon}
@@ -91,9 +99,14 @@ const HsrPage = () => {
 				</DoublePassContainer>
 			</GachaCard>
 
-			<GachaCard title="Limited Warps Calculations" isResults>
-				<ResultBox label="Limited Pulls" value={totalLimitedWarps} />
-				<ResultBox label="Limited 5-star Guarantees" value={guarantees} highlightType="secondary" />
+			<GachaCard title="Result" isResults>
+				<ResultBox label="Limited warps" value={totalLimitedWarps} progress={(nextGuaranteeProgress / 90) * 100} progressLabel="Next 5-star cycle progress" />
+				<ResultBox
+					label="5-star guarantees"
+					value={guarantees}
+					description={`${nextGuaranteeProgress}/90`}
+					highlightType="secondary"
+				/>
 			</GachaCard>
 		</GachaLayout>
 	);

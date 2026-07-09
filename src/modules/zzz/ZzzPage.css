@@ -1,25 +1,21 @@
-.theme-zzz {
-	--theme-bg-dark: url('../../assets/zzz_bg_dark.png');
-	--theme-bg-light: url('../../assets/zzz_bg.jpeg');
+.gacha-page.theme-zzz {
+	--theme-bg-dark: url('../../assets/zzz/bg-dark.png');
+	--theme-bg-light: url('../../assets/zzz/bg.jpeg');
+	--game-bg-image: var(--theme-bg-dark);
+	--game-bg-tint: oklch(10% 0.035 98 / 0.92);
+	--game-panel: oklch(13% 0.035 96 / 0.95);
+	--game-panel-strong: oklch(8% 0.03 96 / 0.97);
+	--game-accent: oklch(84% 0.17 92);
+	--game-accent-2: oklch(68% 0.18 20);
+}
 
-	--theme-focus-primary: #face15;
-	--theme-shadow-primary: rgba(250, 206, 21, 0.3);
-
-	--theme-focus-secondary: #fb7185;
-	--theme-shadow-secondary: rgba(251, 113, 133, 0.3);
-
-	--theme-highlight-text: #ffffff;
-
-	--theme-secondary-text: #face15;
-	--theme-secondary-text-shadow: 0 0 15px rgba(250, 206, 21, 0.5);
-	--theme-light-secondary-text: #d1a55b;
-
-	--theme-card-primary-border: 4px solid #face15;
-	--theme-card-secondary-border: 4px solid #fb7185;
-
-	--theme-light-focus-primary: #d1a55b;
-	--theme-light-shadow-primary: rgba(209, 165, 91, 0.3);
-	
-	--theme-light-focus-secondary: #00e5ff;
-	--theme-light-shadow-secondary: rgba(0, 229, 255, 0.3);
+[data-theme='light'] .gacha-page.theme-zzz {
+	--game-bg-image: var(--theme-bg-light);
+	--game-bg-tint: oklch(90% 0.035 92 / 0.86);
+	--game-bg-shade: oklch(100% 0 0 / 0.22);
+	--game-panel: oklch(98% 0.014 92 / 0.95);
+	--game-panel-strong: oklch(94% 0.02 92 / 0.96);
+	--game-control: oklch(100% 0 0 / 0.88);
+	--game-accent: oklch(63% 0.16 90);
+	--game-accent-2: oklch(58% 0.17 20);
 }

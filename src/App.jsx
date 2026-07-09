@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Drawer from './components/Drawer';
+import CustomScrollbar from './components/CustomScrollbar.jsx';
 import Navigation from './components/Navigation';
 import {
 	HomePage,
@@ -55,6 +56,7 @@ function App() {
 					theme={theme}
 					onThemeToggle={toggleTheme}
 				/>
+				<CustomScrollbar />
 
 				<Routes>
 					<Route path="/gbf" element={<GbfPage />} />

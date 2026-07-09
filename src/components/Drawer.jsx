@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ThemeIcon from './ThemeIcon.jsx';
 import './Drawer.css';
 
 const Drawer = ({ isOpen, onClose, theme, onThemeToggle }) => {
@@ -12,15 +13,18 @@ const Drawer = ({ isOpen, onClose, theme, onThemeToggle }) => {
 				onClick={onClose}
 			/>
 
-			<div className={`drawer ${isOpen ? 'open' : ''}`}>
+			<aside className={`drawer ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen} inert={isOpen ? undefined : true}>
 				<div className="drawer-header">
-					<h2>Menu</h2>
+					<div>
+						<h2>Calculators</h2>
+						<p>Open a planner</p>
+					</div>
 					<button className="drawer-close" onClick={onClose} aria-label="Close menu">
-						×
+						Close
 					</button>
 				</div>
 
-				<nav className="drawer-content">
+				<nav className="drawer-content" aria-label="Mobile navigation">
 					<Link to="/" onClick={onClose}>Home</Link>
 					<Link to="/gbf" onClick={onClose}>Granblue Fantasy</Link>
 					<Link to="/wuwa" onClick={onClose}>Wuthering Waves</Link>
@@ -36,10 +40,10 @@ const Drawer = ({ isOpen, onClose, theme, onThemeToggle }) => {
 						onClick={onThemeToggle}
 						aria-label={themeToggleLabel}
 					>
-						{theme === 'light' ? 'Dark mode' : 'Light mode'}
+						<ThemeIcon theme={theme} />
 					</button>
 				</div>
-			</div>
+			</aside>
 		</>
 	);
 };

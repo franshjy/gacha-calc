@@ -1,115 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import './NikkePage.css';
-import GemIcon from '../../assets/nikke_currency_gem.png';
-import VoucherIcon from '../../assets/nikke_currency_voucher.png';
-import AdvancedVoucherIcon from '../../assets/nikke_currency_advvoucher.png';
+import GemIcon from '../../assets/nikke/currency-gem.png';
+import VoucherIcon from '../../assets/nikke/currency-voucher.png';
+import AdvancedVoucherIcon from '../../assets/nikke/currency-advanced-voucher.png';
+import NikkeLogoDark from '../../assets/nikke/logo-dark.png';
+import NikkeLogoLight from '../../assets/nikke/logo-light.png';
+import { GachaLayout, GachaCard, CurrencyInput, DoublePassContainer, ResultBox } from '../../components/GachaDashboard.jsx';
 
 const NikkePage = () => {
-  useEffect(() => {
-    document.title = "Nikke";
-    return () => {
-      document.title = "Gacha Calculator";
-    };
-  }, []);
+	useEffect(() => {
+		document.title = 'Nikke';
+		return () => {
+			document.title = 'Gacha Calculator';
+		};
+	}, []);
 
-  const [gems, setGems] = useState(() => localStorage.getItem('nikke_gems') || '0');
-  const [vouchers, setVouchers] = useState(() => localStorage.getItem('nikke_vouchers') || '0');
-  const [advancedVouchers, setAdvancedVouchers] = useState(() => localStorage.getItem('nikke_advanced_vouchers') || '0');
-  const [totalPulls, setTotalPulls] = useState(0);
+	const [gems, setGems] = useState(() => localStorage.getItem('nikke_gems') || '0');
+	const [vouchers, setVouchers] = useState(() => localStorage.getItem('nikke_vouchers') || '0');
+	const [advancedVouchers, setAdvancedVouchers] = useState(() => localStorage.getItem('nikke_advanced_vouchers') || '0');
+	const [totalPulls, setTotalPulls] = useState(0);
 
-  // localStorage
-  useEffect(() => {
-    localStorage.setItem('nikke_gems', gems);
-    localStorage.setItem('nikke_vouchers', vouchers);
-    localStorage.setItem('nikke_advanced_vouchers', advancedVouchers);
-  }, [gems, vouchers, advancedVouchers]);
+	useEffect(() => {
+		localStorage.setItem('nikke_gems', gems);
+		localStorage.setItem('nikke_vouchers', vouchers);
+		localStorage.setItem('nikke_advanced_vouchers', advancedVouchers);
+	}, [gems, vouchers, advancedVouchers]);
 
-  useEffect(() => {
-    const gemRolls = Math.floor((parseInt(gems) || 0) / 300); // Assuming 300 gems per pull
-    const advancedVoucherRolls = parseInt(advancedVouchers) || 0;
-    
-    const calculatedTotalPulls = gemRolls + advancedVoucherRolls;
-    setTotalPulls(calculatedTotalPulls);
+	useEffect(() => {
+		const gemRolls = Math.floor((parseInt(gems, 10) || 0) / 300);
+		const advancedVoucherRolls = parseInt(advancedVouchers, 10) || 0;
 
-  }, [gems, advancedVouchers]);
+		setTotalPulls(gemRolls + advancedVoucherRolls);
+	}, [gems, advancedVouchers]);
 
-  const handleFocus = (e) => {
-    e.target.select();
-  };
+	const handleFocus = (event) => {
+		event.target.select();
+	};
 
-  const handleInputChange = (e, setter) => {
-    const value = e.target.value;
-    if (value === '' || parseInt(value, 10) < 0) {
-        setter('0');
-    } else {
-        const cleanValue = String(parseInt(value, 10));
-        setter(cleanValue);
-    }
-  };
+	const handleInputChange = (event, setter) => {
+		const value = event.target.value;
+		if (value === '' || parseInt(value, 10) < 0) {
+			setter('0');
+			return;
+		}
 
-  return (
-    <div className="nikke-page">
-      <div className="nikke-calculator">
-        <h1 className="nikke-title">Nikke Pulls Calculator</h1>
-        
-        <div className="nikke-input-group-top-center">
-          <label className="nikke-input-label">Gems</label>
-          <div className="nikke-input-with-icon">
-            <img src={GemIcon} alt="Gems" className="nikke-currency-icon gem-icon" />
-            <input
-              type="number"
-              className="nikke-input-field"
-              value={gems}
-              onChange={(e) => handleInputChange(e, setGems)}
-              onFocus={handleFocus}
-              min="0"
-            />
-          </div>
-        </div>
+		setter(String(parseInt(value, 10)));
+	};
 
-        <div className="nikke-calculator-content-bottom">
-          <div className="nikke-input-group-bottom-left">
-            <label className="nikke-input-label">Voucher</label>
-            <div className="nikke-input-with-icon">
-              <img src={VoucherIcon} alt="Voucher" className="nikke-currency-icon" />
-              <input
-                type="number"
-                className="nikke-input-field"
-                value={vouchers}
-                onChange={(e) => handleInputChange(e, setVouchers)}
-                onFocus={handleFocus}
-                min="0"
-              />
-            </div>
-          </div>
+	const standardVouchers = parseInt(vouchers, 10) || 0;
 
-          <div className="nikke-separator-line"></div>
+	return (
+		<GachaLayout
+			themeClass="theme-nikke"
+			eyebrow="Recruitment"
+			title="Goddess of Victory: Nikke"
+			lightModeLogoSrc={NikkeLogoLight}
+			darkModeLogoSrc={NikkeLogoDark}
+		>
+			<GachaCard title="Resources" isPrimary>
+				<CurrencyInput
+					label="Gems"
+					iconSrc={GemIcon}
+					value={gems}
+					onChange={(event) => handleInputChange(event, setGems)}
+					onFocus={handleFocus}
+				/>
+				<DoublePassContainer>
+					<CurrencyInput
+						label="Standard vouchers"
+						iconSrc={VoucherIcon}
+						value={vouchers}
+						onChange={(event) => handleInputChange(event, setVouchers)}
+						onFocus={handleFocus}
+						inPassContainer
+					/>
+					<CurrencyInput
+						label="Advanced vouchers"
+						iconSrc={AdvancedVoucherIcon}
+						value={advancedVouchers}
+						onChange={(event) => handleInputChange(event, setAdvancedVouchers)}
+						onFocus={handleFocus}
+						inPassContainer
+						isSpecial
+					/>
+				</DoublePassContainer>
+			</GachaCard>
 
-          <div className="nikke-input-group-bottom-right">
-            <label className="nikke-input-label">Advanced Voucher</label>
-            <div className="nikke-input-with-icon">
-              <img src={AdvancedVoucherIcon} alt="Advanced Voucher" className="nikke-currency-icon" />
-              <input
-                type="number"
-                className="nikke-input-field"
-                value={advancedVouchers}
-                onChange={(e) => handleInputChange(e, setAdvancedVouchers)}
-                onFocus={handleFocus}
-                min="0"
-              />
-            </div>
-          </div>
-        </div>
-        
-        <div className="nikke-results-container">
-          <div className="nikke-result-item">
-            <span className="nikke-result-label">Total Pulls (Limited Banner)</span>
-            <span className="nikke-result-value">{totalPulls}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+			<GachaCard title="Result" isResults>
+				<ResultBox label="Limited pulls" value={totalPulls} />
+				<ResultBox
+					label="Standard vouchers"
+					value={standardVouchers}
+					highlightType="secondary"
+				/>
+			</GachaCard>
+		</GachaLayout>
+	);
 };
 
-export default NikkePage; 
+export default NikkePage;

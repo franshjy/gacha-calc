@@ -10,13 +10,7 @@ const WuwaPage = () => {
 		};
 	}, []);
 
-	return (
-		<div className="wuwa-page">
-			<div className="wuwa-content">
-				<h1>Wuthering Waves Calculator</h1>
-			</div>
-		</div>
-	);
+	return <main className="wuwa-page" aria-label="Wuthering Waves calculator" />;
 };
 
 export default WuwaPage; 

@@ -1,61 +1,60 @@
 :root {
-	--bg-primary: #ffffff;
-	--bg-secondary: #f8f9fa;
-	--text-primary: #2c3e50;
-	--text-secondary: #495057;
-	--accent-color: #61dafb;
-	--nav-bg: #282c34;
-	--nav-text: #ffffff;
-	--border-color: rgba(255, 255, 255, 0.3);
-	--card-bg: rgba(255, 255, 255, 0.6);
-	--card-shadow: rgba(0, 0, 0, 0.15);
-	--divider-color: rgba(255, 255, 255, 0.5);
+	--nav-height: 68px;
+	--bg-primary: oklch(97% 0.008 248);
+	--bg-secondary: oklch(93% 0.018 248);
+	--surface-primary: oklch(99% 0.004 248);
+	--surface-raised: oklch(100% 0 0);
+	--text-primary: oklch(20% 0.04 255);
+	--text-secondary: oklch(42% 0.045 255);
+	--accent-color: oklch(58% 0.16 232);
+	--accent-contrast: oklch(99% 0.004 248);
+	--nav-bg: oklch(14% 0.035 255);
+	--nav-text: oklch(96% 0.01 250);
+	--border-color: oklch(22% 0.04 255 / 0.12);
+	--focus-ring: oklch(67% 0.18 232);
+	color-scheme: light;
 }
 
 [data-theme='dark'] {
-	--bg-primary: #1a1a1a;
-	--bg-secondary: #2d2d2d;
-	--text-primary: #ffffff;
-	--text-secondary: #e0e0e0;
-	--accent-color: #61dafb;
-	--nav-bg: #000000;
-	--nav-text: #ffffff;
-	--border-color: rgba(255, 255, 255, 0.1);
-	--card-bg: rgba(0, 0, 0, 0.6);
-	--card-shadow: rgba(0, 0, 0, 0.3);
-	--divider-color: rgba(255, 255, 255, 0.2);
+	--bg-primary: oklch(12% 0.028 255);
+	--bg-secondary: oklch(16% 0.034 255);
+	--surface-primary: oklch(18% 0.036 255);
+	--surface-raised: oklch(22% 0.04 255);
+	--text-primary: oklch(96% 0.012 250);
+	--text-secondary: oklch(76% 0.03 250);
+	--accent-color: oklch(74% 0.15 82);
+	--accent-contrast: oklch(15% 0.032 255);
+	--nav-bg: oklch(9% 0.026 255);
+	--nav-text: oklch(97% 0.01 250);
+	--border-color: oklch(100% 0 0 / 0.12);
+	--focus-ring: oklch(78% 0.16 82);
+	color-scheme: dark;
 }
 
 .App {
-	text-align: center;
 	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	padding-top: 60px;
-}
-
-.home-page,
-.gbf-page,
-.wuwa-page,
-.nikke-page,
-.hsr-page,
-.zzz-page,
-.ba-page {
-	padding-top: 1rem;
+	padding-top: var(--nav-height);
+	background: var(--bg-primary);
+	color: var(--text-primary);
 }
 
 html,
 body {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	background-color: var(--bg-primary);
+	background: var(--bg-primary);
 	color: var(--text-primary);
-	transition: background-color 0.3s, color 0.3s;
 }
 
-*,
-*::before,
-*::after {
-	box-sizing: inherit;
+a,
+button,
+input {
+	font: inherit;
+}
+
+:focus-visible {
+	outline: 3px solid var(--focus-ring);
+	outline-offset: 3px;
+}
+
+::selection {
+	background: color-mix(in oklch, var(--accent-color) 32%, transparent);
 }

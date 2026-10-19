@@ -163,8 +163,10 @@
   .t-foot {
     display: flex;
     flex-wrap: wrap;
+    align-content: start;
     gap: 6px 22px;
     font-size: 14px;
+    line-height: 1.45;
     color: var(--muted);
   }
 
@@ -180,6 +182,19 @@
 
     .notch span small {
       font-size: 11px;
+    }
+
+    /* single-mark games fit one row, pity games need two: reserve two so the
+       footer height never depends on which game is open */
+    .t-foot {
+      min-height: calc(2 * 1.45em + 6px);
+    }
+  }
+
+  @media (max-width: 420px) {
+    /* narrow phones push the pity stats onto a third row */
+    .t-foot {
+      min-height: calc(3 * 1.45em + 12px);
     }
   }
 </style>

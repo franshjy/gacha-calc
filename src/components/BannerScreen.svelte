@@ -22,13 +22,13 @@
   </div>
 
   <div class="b-panel">
-    {#if art.baked}
-      <h1 class="sr">{game.name}</h1>
-    {:else}
-      <h1 class="b-title" class:plate={!dark}>
+    <h1 class="b-title" class:plate={!dark && !art.baked}>
+      {#if art.baked}
+        <span class="sr">{game.name}</span>
+      {:else}
         <img class="b-logo" class:invert={game.id === 'gbf'} src={GAME_LOGO[game.id]} alt={game.name} />
-      </h1>
-    {/if}
+      {/if}
+    </h1>
 
     <p class="b-eyebrow">
       Limited banner · {game.marks.map((mark) => `${mark.label} ${mark.at}`).join(' · ')}
@@ -101,14 +101,16 @@
   }
 
   .b-title {
-    display: inline-flex;
+    display: flex;
+    align-items: center;
     align-self: flex-start;
-    line-height: 0;
+    /* fixed row: keeps every game (and both themes) at the same height */
+    height: 78px;
   }
 
   .b-title.plate {
     background: #111418;
-    padding: 10px 14px;
+    padding: 0 14px;
   }
 
   .b-logo {
@@ -183,6 +185,9 @@
 
   .b-sub {
     max-width: 44ch;
+    /* two lines is the resting length for every game; reserving it stops the
+       centred panel from shifting when a shorter message fits on one line */
+    min-height: 2lh;
   }
 
   .pager {
@@ -235,6 +240,10 @@
       width: 100%;
       min-height: 0;
       padding: 8px 16px 12px;
+    }
+
+    .b-title {
+      height: 62px;
     }
 
     .b-logo {

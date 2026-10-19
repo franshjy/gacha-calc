@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wuthering Waves">
+	<defs>
+		<linearGradient id="wuwa-icon-bg" x1="18" y1="110" x2="110" y2="18" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#071820" />
+			<stop offset="0.52" stop-color="#123f4d" />
+			<stop offset="1" stop-color="#d8f1df" />
+		</linearGradient>
+		<linearGradient id="wuwa-icon-line" x1="26" y1="78" x2="104" y2="40" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#54d7c6" />
+			<stop offset="1" stop-color="#f4f0c8" />
+		</linearGradient>
+	</defs>
+	<rect width="128" height="128" rx="24" fill="url(#wuwa-icon-bg)" />
+	<path d="M22 76c14-20 28-26 43-18 9 5 15 14 27 8 6-3 10-8 14-16" fill="none" stroke="url(#wuwa-icon-line)" stroke-width="11" stroke-linecap="round" />
+	<path d="M28 91c12-11 24-14 37-7 11 6 22 8 35-4" fill="none" stroke="#d9f4ee" stroke-opacity="0.76" stroke-width="7" stroke-linecap="round" />
+	<circle cx="82" cy="39" r="10" fill="#f4f0c8" />
+</svg>

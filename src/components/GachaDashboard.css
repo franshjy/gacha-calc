@@ -3,13 +3,14 @@
 	--game-bg-tint: oklch(17% 0.035 265);
 	--game-bg-shade: oklch(6% 0.02 260 / 0.74);
 	--game-panel: oklch(14% 0.028 265);
-	--game-panel-strong: oklch(10% 0.022 265);
 	--game-ink: oklch(97% 0.01 250);
 	--game-muted: oklch(78% 0.035 250);
 	--game-accent: oklch(76% 0.16 80);
 	--game-accent-2: oklch(70% 0.18 345);
 	--game-line: oklch(100% 0 0 / 0.14);
-	--game-control: oklch(20% 0.035 265);
+	--game-control: color-mix(in oklch, var(--game-panel) 74%, var(--game-accent));
+	--game-result: color-mix(in oklch, var(--game-panel) 88%, var(--game-accent));
+	--game-result-strong: color-mix(in oklch, var(--game-panel) 78%, var(--game-accent));
 	--game-control-focus: oklch(100% 0 0 / 0.9);
 	min-height: calc(100vh - var(--nav-height));
 	color: var(--game-ink);
@@ -90,8 +91,8 @@
 
 .gacha-dashboard {
 	display: grid;
-	grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.8fr);
-	gap: 18px;
+	grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+	gap: 20px;
 	align-items: stretch;
 }
 
@@ -107,7 +108,7 @@
 }
 
 .gacha-card-results {
-	background: var(--game-panel-strong);
+	background: color-mix(in oklch, var(--game-panel) 93%, var(--game-accent));
 }
 
 .gacha-card-heading {
@@ -179,7 +180,7 @@
 }
 
 .gacha-input-wrapper:hover {
-	background: color-mix(in oklch, var(--game-control) 82%, var(--game-accent));
+	background: color-mix(in oklch, var(--game-control) 86%, var(--game-accent));
 }
 
 .gacha-input-wrapper:focus-within {
@@ -224,7 +225,13 @@
 	gap: 12px;
 	padding: 16px;
 	border-radius: 14px;
-	background: color-mix(in oklch, var(--game-panel) 74%, black);
+	background: var(--game-result);
+}
+
+.gacha-card-results .gacha-card-heading + .gacha-result-box {
+	min-height: 144px;
+	align-content: space-between;
+	background: var(--game-result-strong);
 }
 
 .gacha-result-label {
@@ -270,16 +277,13 @@
 
 [data-theme='light'] .gacha-page {
 	--game-panel: oklch(98% 0.012 250 / 0.95);
-	--game-panel-strong: oklch(94% 0.018 250 / 0.96);
 	--game-ink: oklch(18% 0.04 255);
 	--game-muted: oklch(38% 0.055 255);
 	--game-line: oklch(18% 0.04 255 / 0.12);
-	--game-control: oklch(100% 0 0 / 0.88);
+	--game-control: color-mix(in oklch, var(--game-panel) 88%, var(--game-accent));
+	--game-result: color-mix(in oklch, var(--game-panel) 86%, var(--game-accent));
+	--game-result-strong: color-mix(in oklch, var(--game-panel) 76%, var(--game-accent));
 	--game-control-focus: var(--game-accent);
-}
-
-[data-theme='light'] .gacha-result-box {
-	background: oklch(100% 0 0 / 0.76);
 }
 
 @media (max-width: 860px) {

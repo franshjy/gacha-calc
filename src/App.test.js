@@ -53,17 +53,20 @@ test('hsr page shows the 5-star guarantee label with readable text', () => {
 	expect(screen.getByText(/5-star guarantees/i)).toBeInTheDocument();
 });
 
-test('home page only promotes implemented calculators', () => {
+test('home page promotes implemented calculators', () => {
 	render(<HomePage />);
 
 	expect(screen.getByText(/granblue fantasy/i)).toBeInTheDocument();
-	expect(screen.queryByRole('link', { name: /wuthering waves/i })).not.toBeInTheDocument();
+	expect(screen.getByRole('link', { name: /wuthering waves/i })).toBeInTheDocument();
 });
 
 test('home dashboard shows stored total pulls for every implemented game', () => {
 	localStorage.setItem('gbf_crystals', '900');
 	localStorage.setItem('gbf_single_tickets', '2');
 	localStorage.setItem('gbf_ten_tickets', '1');
+	localStorage.setItem('wuwa_astrites', '1600');
+	localStorage.setItem('wuwa_lunites', '160');
+	localStorage.setItem('wuwa_radiant_tides', '4');
 	localStorage.setItem('hsr_stellar_jades', '320');
 	localStorage.setItem('hsr_oneiric_shards', '160');
 	localStorage.setItem('hsr_special_passes', '4');
@@ -79,6 +82,7 @@ test('home dashboard shows stored total pulls for every implemented game', () =>
 	render(<HomePage />);
 
 	expect(screen.getByLabelText('Granblue Fantasy total pulls')).toHaveTextContent('15');
+	expect(screen.getByLabelText('Wuthering Waves total pulls')).toHaveTextContent('15');
 	expect(screen.getByLabelText('Honkai: Star Rail total pulls')).toHaveTextContent('7');
 	expect(screen.getByLabelText('Zenless Zone Zero total pulls')).toHaveTextContent('5');
 	expect(screen.getByLabelText('Goddess of Victory: Nikke total pulls')).toHaveTextContent('8');
@@ -88,7 +92,7 @@ test('home dashboard shows stored total pulls for every implemented game', () =>
 test('home dashboard uses rounded game icons', () => {
 	const { container } = render(<HomePage />);
 
-	expect(container.querySelectorAll('.home-card-mark img')).toHaveLength(5);
+	expect(container.querySelectorAll('.home-card-mark img')).toHaveLength(6);
 });
 
 test('calculator pages keep copy minimal', () => {
@@ -110,8 +114,19 @@ test('spark progress shows current pulls over spark target', () => {
 	expect(screen.queryByText(/210 remaining/i)).not.toBeInTheDocument();
 });
 
-test('wuwa page is intentionally empty while calculator support is absent', () => {
-	const { container } = render(<WuwaPage />);
+test('wuwa page calculates character and weapon convenes', () => {
+	localStorage.setItem('wuwa_astrites', '1600');
+	localStorage.setItem('wuwa_lunites', '160');
+	localStorage.setItem('wuwa_radiant_tides', '4');
+	localStorage.setItem('wuwa_forging_tides', '2');
+	localStorage.setItem('wuwa_lustrous_tides', '7');
 
-	expect(container.textContent).toBe('');
+	render(<WuwaPage />);
+
+	expect(screen.getByText(/character pulls/i)).toBeInTheDocument();
+	expect(screen.getByText('15')).toBeInTheDocument();
+	expect(screen.getByText(/weapon pulls/i)).toBeInTheDocument();
+	expect(screen.getByText('13')).toBeInTheDocument();
+	expect(screen.getByText(/lustrous tides/i)).toBeInTheDocument();
+	expect(screen.getByText('7')).toBeInTheDocument();
 });

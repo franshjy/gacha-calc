@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 import GbfIcon from '../../assets/gbf/logo-icon.png';
+import WuwaIcon from '../../assets/wuwa/logo-icon.svg';
 import HsrIcon from '../../assets/hsr/logo-icon.png';
 import ZzzIcon from '../../assets/zzz/logo-icon.png';
 import NikkeIcon from '../../assets/nikke/logo-icon.webp';
@@ -17,6 +18,14 @@ const calculators = [
 		tone: 'sky',
 		icon: GbfIcon,
 		getTotal: () => Math.floor(numberFromStorage('gbf_crystals') / 300) + numberFromStorage('gbf_single_tickets') + (numberFromStorage('gbf_ten_tickets') * 10),
+	},
+	{
+		to: '/wuwa',
+		code: 'WUWA',
+		title: 'Wuthering Waves',
+		tone: 'teal',
+		icon: WuwaIcon,
+		getTotal: () => Math.floor((numberFromStorage('wuwa_astrites') + numberFromStorage('wuwa_lunites')) / 160) + numberFromStorage('wuwa_radiant_tides'),
 	},
 	{
 		to: '/hsr',

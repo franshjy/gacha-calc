@@ -82,7 +82,7 @@ const GbfPage = () => {
 			</GachaCard>
 
 			<GachaCard title="Result" isResults>
-				<ResultBox label="Total rolls" value={totalRolls} progress={progress} progressLabel="Spark progress" />
+				<ResultBox label="Total draws" value={totalRolls} progress={progress} progressLabel="Spark progress" />
 				<ResultBox
 					label="Spark progress"
 					value={`${percentage}%`}

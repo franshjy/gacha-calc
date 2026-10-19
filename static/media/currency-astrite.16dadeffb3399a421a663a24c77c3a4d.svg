@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Astrite">
+	<defs>
+		<linearGradient id="astrite-fill" x1="14" y1="54" x2="50" y2="10" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#4ad2c6" />
+			<stop offset="0.52" stop-color="#d7f0ea" />
+			<stop offset="1" stop-color="#f1dc91" />
+		</linearGradient>
+	</defs>
+	<path d="M32 5 49 25 39 59H25L15 25 32 5Z" fill="url(#astrite-fill)" />
+	<path d="M32 5v54M15 25h34M25 59l24-34M39 59 15 25" fill="none" stroke="#09212a" stroke-opacity="0.48" stroke-width="3" stroke-linecap="round" />
+</svg>

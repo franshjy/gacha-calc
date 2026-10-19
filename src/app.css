@@ -97,6 +97,9 @@
 
 html {
   background: var(--bg);
+  /* keep the scrollbar gutter reserved so a shorter page does not re-centre
+     everything 7.5px to the right of a taller one */
+  scrollbar-gutter: stable;
 }
 
 body {

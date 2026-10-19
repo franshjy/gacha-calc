@@ -3,7 +3,7 @@
 A web-based gacha currency tracker and pull calculator built with React. It helps players convert saved resources into pulls, spark progress, and limited-banner pity coverage across several gacha games.
 
 ## 🔗 Live Demo
-[https://franzthevanguard.github.io/gacha-calc/](https://franzthevanguard.github.io/gacha-calc/)
+[https://franshjy.github.io/gacha-calc/](https://franshjy.github.io/gacha-calc/)
 
 ## 🎮 Supported Games
 Implemented calculators:

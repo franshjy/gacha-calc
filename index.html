@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Gacha Calc — banner readiness</title>
+    <meta
+      name="description"
+      content="Turn saved gacha currency into pulls, spark progress, and pity coverage for Granblue Fantasy, Blue Archive, Honkai: Star Rail, Zenless Zone Zero, Nikke, and Wuthering Waves."
+    />
+    <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#e8ebee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1114" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Chakra+Petch:wght@500;600;700&display=swap"
+    />
+    <script>
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch (error) {
+        /* storage is optional; fall back to the system theme */
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

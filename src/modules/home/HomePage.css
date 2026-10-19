@@ -80,6 +80,10 @@
 	--card-accent: oklch(62% 0.14 232);
 }
 
+.tone-teal {
+	--card-accent: oklch(62% 0.13 178);
+}
+
 .tone-gold {
 	--card-accent: oklch(70% 0.14 82);
 }

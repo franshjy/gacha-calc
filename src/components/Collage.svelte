@@ -47,7 +47,7 @@
           <span class="n tn">
             {fmt(result.pulls)}<small>{plural(game, result.pulls)}</small>
           </span>
-          <span class="w">{STATE_WORD[result.state]} · {last.label} {percent}%</span>
+          <span class="w">{last.label} {percent}%</span>
           <span class="mini" aria-hidden="true"><i style="width: {result.ratio * 100}%"></i></span>
         </span>
       </span>
@@ -198,20 +198,6 @@
     position: absolute;
     inset: 0 auto 0 0;
     background: #ffffff;
-  }
-
-  .tile[aria-current='page']::before {
-    content: 'Open';
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    background: var(--ink);
-    color: var(--bg);
-    font: 700 12px/1 var(--font-d);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 7px 10px;
   }
 
   .compact {

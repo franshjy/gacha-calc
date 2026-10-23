@@ -30,18 +30,16 @@
       {/if}
     </h1>
 
-    <p class="b-eyebrow">
-      Limited banner · {game.marks.map((mark) => `${mark.label} ${mark.at}`).join(' · ')}
-    </p>
-
     <div class="readout" aria-live="polite" aria-atomic="true">
       <p class="b-count">
         <span class="n tn">{fmt(result.pulls)}</span>
         <span class="u">{plural(game, result.pulls)}</span>
       </p>
       <p class="b-state">
-        <span class="flag" data-s={result.state} aria-hidden="true"></span>
-        {copy.title}
+        {#if copy.title}
+          <span class="flag" data-s={result.state} aria-hidden="true"></span>
+          {copy.title}
+        {/if}
       </p>
       <p class="b-sub">{copy.sub}</p>
     </div>
@@ -125,14 +123,6 @@
     filter: invert(1);
   }
 
-  .b-eyebrow {
-    font: 600 13px/1.2 var(--font-d);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    max-width: 46ch;
-  }
-
   .readout {
     display: grid;
     gap: 12px;
@@ -164,6 +154,8 @@
     gap: 10px;
     font: 700 24px/1.1 var(--font-d);
     text-transform: uppercase;
+    /* the empty state carries no words: hold the line so the panel cannot move */
+    min-height: 1lh;
   }
 
   .flag {
@@ -277,10 +269,6 @@
 
     .b-count .n {
       font-size: 92px;
-    }
-
-    .b-eyebrow {
-      font-size: 12px;
     }
   }
 </style>

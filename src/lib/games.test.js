@@ -89,11 +89,10 @@ describe('calc', () => {
 });
 
 describe('verdict', () => {
-  it('describes an empty calculator with the currency needed for the target', () => {
+  it('leaves the state line empty and names the currency for the target', () => {
     const copy = verdict(game('gbf'), calc(game('gbf'), {}));
-    expect(copy.title).toBe('Nothing saved yet');
-    expect(copy.sub).toContain('90,000 Crystals');
-    expect(copy.sub).toContain('spark');
+    expect(copy.title).toBe('');
+    expect(copy.sub).toBe('90,000 Crystals covers the spark.');
   });
 
   it('describes guarantee coverage for a two-step pity banner', () => {
@@ -112,6 +111,12 @@ describe('verdict', () => {
     const copy = verdict(game('hsr'), calc(game('hsr'), { jade: 13440 }));
     expect(copy.title).toBe('6 warps from hard pity');
     expect(copy.sub).toBe('960 more Stellar Jade closes it.');
+  });
+
+  it('states only the missing currency while building', () => {
+    const copy = verdict(game('gbf'), calc(game('gbf'), { crystals: 30000 }));
+    expect(copy.title).toBe('33% to spark');
+    expect(copy.sub).toBe('60,000 Crystals');
   });
 });
 

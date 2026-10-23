@@ -19,7 +19,6 @@ export const GAMES = [
       { k: 'single', label: 'Draw Tickets', tix: 1 },
       { k: 'ten', label: '10-Part Draw Tickets', tix: 10 },
     ],
-    note: '300 Crystals per draw. 300 draws on one banner earn a spark: pick any featured character.',
   },
   {
     id: 'ba',
@@ -34,7 +33,6 @@ export const GAMES = [
       { k: 'single', label: 'Recruitment Tickets', tix: 1 },
       { k: 'ten', label: '10× Recruitment Tickets', tix: 10 },
     ],
-    note: '120 Pyroxenes per recruit. 200 recruitment points exchange for the pickup student.',
   },
   {
     id: 'hsr',
@@ -53,7 +51,6 @@ export const GAMES = [
       { k: 'special', label: 'Star Rail Special Pass', icon: 'hsr.special', tix: 1 },
       { k: 'pass', label: 'Star Rail Pass', icon: 'hsr.pass', side: 'standard warps' },
     ],
-    note: '160 Stellar Jade per warp. A 5★ is certain by warp 90; lose the 50/50 and the next one is the limited, so 180 warps guarantee it.',
   },
   {
     id: 'zzz',
@@ -72,7 +69,6 @@ export const GAMES = [
       { k: 'enc', label: 'Encrypted Master Tapes', icon: 'zzz.enc', tix: 1 },
       { k: 'master', label: 'Master Tapes', icon: 'zzz.master', side: 'standard searches' },
     ],
-    note: '160 Polychromes per search. An S-rank Agent is certain by search 90; 180 guarantee the limited one.',
   },
   {
     id: 'nikke',
@@ -87,7 +83,6 @@ export const GAMES = [
       { k: 'adv', label: 'Advanced Recruit Vouchers', icon: 'nikke.adv', tix: 1 },
       { k: 'vou', label: 'Standard Recruit Vouchers', icon: 'nikke.vou', side: 'standard recruits' },
     ],
-    note: '300 Gems per recruit. 200 Gold Mileage tickets exchange for the pickup Nikke.',
   },
   {
     id: 'wuwa',
@@ -107,7 +102,6 @@ export const GAMES = [
       { k: 'lustrous', label: 'Lustrous Tide', icon: 'wuwa.lustrous', side: 'standard convenes' },
       { k: 'forging', label: 'Forging Tide', icon: 'wuwa.forging', side: 'weapon convenes' },
     ],
-    note: '160 Astrite per convene. A 5★ is certain by convene 80; 160 guarantee the featured Resonator.',
   },
 ];
 
@@ -197,8 +191,8 @@ export function verdict(game, result) {
 
   if (result.state === 'empty') {
     return {
-      title: 'Nothing saved yet',
-      sub: `Enter your ${game.cost.label} and tickets. ${fmt(last.at * game.cost.per)} ${game.cost.label} covers the ${last.label.toLowerCase()}.`,
+      title: '',
+      sub: `${fmt(last.at * game.cost.per)} ${game.cost.label} covers the ${last.label.toLowerCase()}.`,
     };
   }
 
@@ -234,6 +228,6 @@ export function verdict(game, result) {
 
   return {
     title: `${Math.floor((result.pulls / result.next.at) * 100)}% to ${result.next.label.toLowerCase()}`,
-    sub: `${fmt(result.short)} ${unit(result.short)} short · ${fmt(result.shortCurrency)} ${game.cost.label}`,
+    sub: `${fmt(result.shortCurrency)} ${game.cost.label}`,
   };
 }

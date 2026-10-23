@@ -40,12 +40,11 @@
   id="all-games"
   class="sheet"
   bind:this={dialog}
-  aria-labelledby="sheet-h"
+  aria-label="All games"
   onclick={onDialogClick}
 >
   <div class="wrap sheet-inner">
     <div class="sheet-head">
-      <h2 id="sheet-h">All games</h2>
       <button class="close" type="button" onclick={closeSheet}>Close</button>
     </div>
     <Collage current={route} {dark} compact onpick={closeSheet} />
@@ -143,18 +142,12 @@
   .sheet-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding-block: 14px;
     position: sticky;
     top: 0;
     z-index: 2;
     background: var(--bg);
-  }
-
-  .sheet-head h2 {
-    font: 700 18px/1 var(--font-d);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
   }
 
   .close {

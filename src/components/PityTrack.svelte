@@ -11,6 +11,7 @@
   }
 
   const youLeft = $derived(Math.max(3, Math.min(97, pct(result.pulls))));
+  const percent = $derived(Math.round(result.ratio * 100));
   const trackLabel = $derived(
     result.next
       ? `${fmt(result.pulls)} ${plural(game, result.pulls)} saved. ${fmt(result.short)} to ${result.next.label} at ${result.next.at}.`
@@ -33,24 +34,15 @@
         </div>
       {/each}
 
-      <div class="you tn" style="left: {youLeft}%">
-        {result.pulls > max ? `${fmt(max)} + ${fmt(result.pulls - max)}` : `You · ${fmt(result.pulls)}`}
-      </div>
+      <div class="you tn" style="left: {youLeft}%">{percent}%</div>
     </div>
 
     <div class="t-foot">
       <span><b class="tn">{fmt(result.fromPool)}</b> from {game.cost.label}</span>
       <span><b class="tn">{fmt(result.tickets)}</b> from tickets</span>
-      {#if game.marks.length > 1}
-        <span>
-          <b class="tn">{result.hard}</b> hard {result.hard === 1 ? 'pity' : 'pities'} ·
-          <b class="tn">{result.guaranteed}</b> guaranteed limited
-        </span>
-      {/if}
       {#each result.side.filter((item) => item.n > 0) as item (item.label)}
         <span><b class="tn">{fmt(item.n)}</b> {item.label}</span>
       {/each}
-      <span>Each tick is 10 {game.unit[1]}</span>
     </div>
   </div>
 </section>
@@ -184,17 +176,10 @@
       font-size: 11px;
     }
 
-    /* single-mark games fit one row, pity games need two: reserve two so the
-       footer height never depends on which game is open */
+    /* "from X" labels differ in length per game: reserve two rows so a wrap
+       cannot push the page down when switching games */
     .t-foot {
       min-height: calc(2 * 1.45em + 6px);
-    }
-  }
-
-  @media (max-width: 420px) {
-    /* narrow phones push the pity stats onto a third row */
-    .t-foot {
-      min-height: calc(3 * 1.45em + 12px);
     }
   }
 </style>

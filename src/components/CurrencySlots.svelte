@@ -8,8 +8,6 @@
 
   let { game, values } = $props();
 
-  const hasValues = $derived(game.fields.some((field) => Number(values[field.k]) > 0));
-
   function onInput(event, field) {
     const clean = toDigits(event.currentTarget.value);
     if (event.currentTarget.value !== clean) event.currentTarget.value = clean;
@@ -37,7 +35,6 @@
   <div class="inner">
     <div class="s-head">
       <h2 id="saved-heading">Saved currency</h2>
-      <span class="ex">{hasValues ? 'Saved in this browser.' : 'Enter your totals. Saved in this browser.'}</span>
       <button class="clear" type="button" onclick={clearAll}>Clear all</button>
     </div>
 
@@ -71,8 +68,6 @@
         </div>
       {/each}
     </div>
-
-    <p class="note">{game.note}</p>
   </div>
 </section>
 
@@ -95,13 +90,8 @@
     letter-spacing: 0.05em;
   }
 
-  .ex {
-    font-size: 14px;
-    color: var(--muted);
-    flex: 1;
-  }
-
   .clear {
+    margin-left: auto;
     border: 1px solid var(--ink);
     background: none;
     padding: 6px 14px;
@@ -183,13 +173,6 @@
     color: var(--muted);
   }
 
-  .note {
-    margin-top: 18px;
-    font-size: 14px;
-    color: var(--muted);
-    max-width: 70ch;
-  }
-
   @media (max-width: 760px) {
     .s-head {
       align-items: center;
@@ -197,12 +180,6 @@
 
     .s-head h2 {
       margin-right: auto;
-    }
-
-    .ex {
-      order: 3;
-      flex: 1 1 100%;
-      font-size: 13px;
     }
 
     .slots {

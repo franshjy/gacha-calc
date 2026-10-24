@@ -16,8 +16,8 @@ export const GAMES = [
     cost: { per: 300, label: 'Crystals' },
     fields: [
       { k: 'crystals', label: 'Crystals', icon: 'gbf.crystal', pool: true },
-      { k: 'single', label: 'Draw Tickets', tix: 1 },
-      { k: 'ten', label: '10-Part Draw Tickets', tix: 10 },
+      { k: 'single', label: 'Draw Tickets', icon: 'gbf.single', tix: 1 },
+      { k: 'ten', label: '10-Part Draw Tickets', icon: 'gbf.ten', tix: 10 },
     ],
   },
   {
@@ -30,8 +30,8 @@ export const GAMES = [
     cost: { per: 120, label: 'Pyroxenes' },
     fields: [
       { k: 'pyro', label: 'Pyroxenes', icon: 'ba.pyro', pool: true },
-      { k: 'single', label: 'Recruitment Tickets', tix: 1 },
-      { k: 'ten', label: '10× Recruitment Tickets', tix: 10 },
+      { k: 'single', label: 'Recruitment Tickets', icon: 'ba.single', tix: 1 },
+      { k: 'ten', label: '10× Recruitment Tickets', icon: 'ba.ten', tix: 10 },
     ],
   },
   {
@@ -97,7 +97,7 @@ export const GAMES = [
     cost: { per: 160, label: 'Astrite' },
     fields: [
       { k: 'astrite', label: 'Astrite', icon: 'wuwa.astrite', pool: true },
-      { k: 'lune', label: 'Lunite', pool: true, hint: '1:1 into Astrite' },
+      { k: 'lune', label: 'Lunite', icon: 'wuwa.lune', pool: true, hint: '1:1 into Astrite' },
       { k: 'radiant', label: 'Radiant Tide', icon: 'wuwa.radiant', tix: 1 },
       { k: 'lustrous', label: 'Lustrous Tide', icon: 'wuwa.lustrous', side: 'standard convenes' },
       { k: 'forging', label: 'Forging Tide', icon: 'wuwa.forging', side: 'weapon convenes' },
@@ -187,47 +187,41 @@ export function calc(game, values = {}) {
 export function verdict(game, result) {
   const unit = (n) => plural(game, n);
   const last = game.marks[game.marks.length - 1];
-  const pityBanner = game.marks.length > 1;
 
-  if (result.state === 'empty') {
-    return {
-      title: '',
-      sub: `${fmt(last.at * game.cost.per)} ${game.cost.label} covers the ${last.label.toLowerCase()}.`,
-    };
-  }
+  /*
+   * The second line is a running currency readout, in the same shape whatever
+   * the numbers are: every mark still ahead gets "<amount> to <mark>", and once
+   * the last mark is met it becomes "<amount> after <mark>". Tickets are priced
+   * in the same currency, so `held` is what the player owns in one unit.
+   */
+  const held = result.pool + result.tickets * game.cost.per;
+  const toMark = (mark) => Math.max(0, mark.at * game.cost.per - held);
+
+  const needs = game.marks
+    .filter((mark) => result.pulls < mark.at)
+    .map(
+      (mark, i) =>
+        `${fmt(toMark(mark))}${i === 0 ? ` ${game.cost.label}` : ''} to ${mark.label.toLowerCase()}`,
+    );
+
+  const sub = needs.length
+    ? needs.join(' · ')
+    : `${fmt(Math.max(0, held - last.at * game.cost.per))} ${game.cost.label} after ${last.label.toLowerCase()}`;
+
+  if (result.state === 'empty') return { title: '', sub };
 
   if (result.state === 'ready') {
-    const spare = result.pulls - last.at;
-    if (pityBanner) {
-      return {
-        title: 'Guarantee covered',
-        sub:
-          `The limited ${game.star} is certain even if you lose the 50/50.` +
-          (spare ? ` ${fmt(spare)} ${unit(spare)} spare.` : ''),
-      };
-    }
-    return {
-      title: `${last.label} ready`,
-      sub: spare ? `${fmt(spare)} ${unit(spare)} left after the exchange.` : 'Exactly enough for the exchange.',
-    };
+    return { title: game.marks.length > 1 ? 'Guarantee covered' : `${last.label} ready`, sub };
   }
 
-  if (result.state === 'pity') {
-    return {
-      title: 'Hard pity covered',
-      sub: `One ${game.star} is certain; the limited one is a 50/50. ${fmt(result.short)} ${unit(result.short)} to the guarantee.`,
-    };
-  }
+  if (result.state === 'pity') return { title: `${game.marks[0].label} covered`, sub };
 
   if (result.state === 'close') {
-    return {
-      title: `${fmt(result.short)} ${unit(result.short)} from ${result.next.label.toLowerCase()}`,
-      sub: `${fmt(result.shortCurrency)} more ${game.cost.label} closes it.`,
-    };
+    return { title: `${fmt(result.short)} ${unit(result.short)} from ${result.next.label.toLowerCase()}`, sub };
   }
 
   return {
     title: `${Math.floor((result.pulls / result.next.at) * 100)}% to ${result.next.label.toLowerCase()}`,
-    sub: `${fmt(result.shortCurrency)} ${game.cost.label}`,
+    sub,
   };
 }

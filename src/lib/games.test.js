@@ -89,34 +89,40 @@ describe('calc', () => {
 });
 
 describe('verdict', () => {
-  it('leaves the state line empty and names the currency for the target', () => {
+  it('leaves the state line empty and states the need as a distance', () => {
     const copy = verdict(game('gbf'), calc(game('gbf'), {}));
     expect(copy.title).toBe('');
-    expect(copy.sub).toBe('90,000 Crystals covers the spark.');
+    expect(copy.sub).toBe('90,000 Crystals to spark');
   });
 
-  it('describes guarantee coverage for a two-step pity banner', () => {
+  it('names the leftover once a two-step pity banner is covered', () => {
     const copy = verdict(game('wuwa'), calc(game('wuwa'), { astrite: 28800 }));
     expect(copy.title).toBe('Guarantee covered');
-    expect(copy.sub).toContain('50/50');
+    expect(copy.sub).toBe('3,200 Astrite after guarantee');
   });
 
-  it('describes spark readiness for a single-target banner', () => {
+  it('counts tickets toward the leftover of a single-target banner', () => {
     const copy = verdict(game('ba'), calc(game('ba'), { pyro: 24000, single: 5 }));
     expect(copy.title).toBe('Spark ready');
-    expect(copy.sub).toContain('5 recruits');
+    expect(copy.sub).toBe('600 Pyroxenes after spark');
   });
 
-  it('quantifies the gap in both pulls and currency', () => {
+  it('states every mark still ahead in currency', () => {
     const copy = verdict(game('hsr'), calc(game('hsr'), { jade: 13440 }));
     expect(copy.title).toBe('6 warps from hard pity');
-    expect(copy.sub).toBe('960 more Stellar Jade closes it.');
+    expect(copy.sub).toBe('960 Stellar Jade to hard pity · 15,360 to guarantee');
   });
 
-  it('states only the missing currency while building', () => {
+  it('keeps the same shape while building', () => {
     const copy = verdict(game('gbf'), calc(game('gbf'), { crystals: 30000 }));
     expect(copy.title).toBe('33% to spark');
-    expect(copy.sub).toBe('60,000 Crystals');
+    expect(copy.sub).toBe('60,000 Crystals to spark');
+  });
+
+  it('drops the marks already met', () => {
+    const copy = verdict(game('zzz'), calc(game('zzz'), { poly: 16000 }));
+    expect(copy.title).toBe('Hard pity covered');
+    expect(copy.sub).toBe('12,800 Polychromes to guarantee');
   });
 });
 

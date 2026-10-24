@@ -1,10 +1,14 @@
 import gbfArt from '../assets/gbf/art.webp';
 import gbfArtDark from '../assets/gbf/art-dark.webp';
 import gbfCrystal from '../assets/gbf/currency-crystal.jpg';
+import gbfTicket from '../assets/gbf/currency-draw-ticket.webp';
+import gbfTen from '../assets/gbf/currency-ten-ticket.webp';
 import gbfLogo from '../assets/gbf/logo-simple.webp';
 
 import baArt from '../assets/ba/art.webp';
 import baPyro from '../assets/ba/currency-pyroxene.png';
+import baTicket from '../assets/ba/currency-recruit-ticket.webp';
+import baTen from '../assets/ba/currency-ten-ticket.webp';
 import baLogo from '../assets/ba/logo-display.webp';
 
 import hsrArt from '../assets/hsr/art.webp';
@@ -29,10 +33,11 @@ import zzzEnc from '../assets/zzz/currency-encrypted-tape.png';
 import zzzMaster from '../assets/zzz/currency-master-tape.png';
 import zzzLogo from '../assets/zzz/logo-display.webp';
 
-import wuwaAstrite from '../assets/wuwa/currency-astrite.svg';
-import wuwaLustrous from '../assets/wuwa/currency-lustrous-tide.svg';
-import wuwaForging from '../assets/wuwa/currency-forging-tide.svg';
-import wuwaRadiant from '../assets/wuwa/currency-radiant-tide.svg';
+import wuwaAstrite from '../assets/wuwa/currency-astrite.webp';
+import wuwaLunite from '../assets/wuwa/currency-lunite.webp';
+import wuwaLustrous from '../assets/wuwa/currency-lustrous-tide.webp';
+import wuwaForging from '../assets/wuwa/currency-forging-tide.webp';
+import wuwaRadiant from '../assets/wuwa/currency-radiant-tide.webp';
 import wuwaLogo from '../assets/wuwa/logo-dark.svg';
 import wuwaMark from '../assets/wuwa/logo-icon.svg';
 
@@ -97,7 +102,11 @@ export const WUWA_MARK = wuwaMark;
 
 export const CURRENCY = {
   'gbf.crystal': gbfCrystal,
+  'gbf.single': gbfTicket,
+  'gbf.ten': gbfTen,
   'ba.pyro': baPyro,
+  'ba.single': baTicket,
+  'ba.ten': baTen,
   'hsr.jade': hsrJade,
   'hsr.shard': hsrShard,
   'hsr.special': hsrSpecial,
@@ -110,6 +119,7 @@ export const CURRENCY = {
   'nikke.adv': nikkeAdv,
   'nikke.vou': nikkeVou,
   'wuwa.astrite': wuwaAstrite,
+  'wuwa.lune': wuwaLunite,
   'wuwa.radiant': wuwaRadiant,
   'wuwa.lustrous': wuwaLustrous,
   'wuwa.forging': wuwaForging,

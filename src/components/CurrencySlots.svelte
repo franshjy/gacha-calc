@@ -3,8 +3,6 @@
   import { fmt, plural, toDigits } from '../lib/games.js';
   import { CURRENCY } from '../lib/art.js';
   import { clearGame, setField } from '../lib/state.svelte.js';
-  import TicketGlyph from './TicketGlyph.svelte';
-  import PlaceholderGlyph from './PlaceholderGlyph.svelte';
 
   let { game, values } = $props();
 
@@ -23,7 +21,7 @@
   function caption(field) {
     const n = Number(values[field.k]) || 0;
 
-    if (field.side) return `${field.side}, not counted`;
+    if (field.side) return field.side;
     if (field.tix) return `= ${fmt(n * field.tix)} ${plural(game, n * field.tix)}`;
 
     const pulls = (n / game.cost.per).toFixed(1);
@@ -42,13 +40,7 @@
       {#each game.fields as field (field.k)}
         <div class="slot">
           <span class="ic">
-            {#if field.icon}
-              <img src={CURRENCY[field.icon]} alt="" width="64" height="64" />
-            {:else if field.tix}
-              <TicketGlyph count={field.tix} />
-            {:else}
-              <PlaceholderGlyph label="L" />
-            {/if}
+            <img src={CURRENCY[field.icon]} alt="" width="64" height="64" />
           </span>
 
           <label for={`in-${game.id}-${field.k}`}>{field.label}</label>

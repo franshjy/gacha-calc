@@ -107,10 +107,10 @@ describe('verdict', () => {
     expect(copy.sub).toBe('600 Pyroxenes after spark');
   });
 
-  it('states every mark still ahead in currency', () => {
+  it('puts each mark still ahead on its own line', () => {
     const copy = verdict(game('hsr'), calc(game('hsr'), { jade: 13440 }));
     expect(copy.title).toBe('6 warps from hard pity');
-    expect(copy.sub).toBe('960 Stellar Jade to hard pity · 15,360 to guarantee');
+    expect(copy.sub).toBe('960 Stellar Jade to hard pity\n15,360 to guarantee');
   });
 
   it('keeps the same shape while building', () => {

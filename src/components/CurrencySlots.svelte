@@ -25,7 +25,7 @@
     if (field.tix) return `= ${fmt(n * field.tix)} ${plural(game, n * field.tix)}`;
 
     const pulls = (n / game.cost.per).toFixed(1);
-    return `≈ ${pulls} ${game.unit[1]}${field.hint ? ' · ' + field.hint : ''}`;
+    return `≈ ${pulls} ${game.unit[1]}`;
   }
 </script>
 

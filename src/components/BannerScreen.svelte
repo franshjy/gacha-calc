@@ -177,6 +177,7 @@
 
   .b-sub {
     max-width: 44ch;
+    white-space: pre-line;
     /* two lines is the resting length for every game; reserving it stops the
        centred panel from shifting when a shorter message fits on one line */
     min-height: 2lh;

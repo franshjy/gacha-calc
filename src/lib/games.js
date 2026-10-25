@@ -47,7 +47,7 @@ export const GAMES = [
     cost: { per: 160, label: 'Stellar Jade' },
     fields: [
       { k: 'jade', label: 'Stellar Jade', icon: 'hsr.jade', pool: true },
-      { k: 'shard', label: 'Oneiric Shards', icon: 'hsr.shard', pool: true, hint: '1:1 into Jade' },
+      { k: 'shard', label: 'Oneiric Shards', icon: 'hsr.shard', pool: true },
       { k: 'special', label: 'Star Rail Special Pass', icon: 'hsr.special', tix: 1 },
       { k: 'pass', label: 'Star Rail Pass', icon: 'hsr.pass', side: 'standard warps' },
     ],
@@ -65,7 +65,7 @@ export const GAMES = [
     cost: { per: 160, label: 'Polychromes' },
     fields: [
       { k: 'poly', label: 'Polychromes', icon: 'zzz.poly', pool: true },
-      { k: 'mono', label: 'Monochrome Film', icon: 'zzz.mono', pool: true, hint: '1:1 into Polychromes' },
+      { k: 'mono', label: 'Monochrome Film', icon: 'zzz.mono', pool: true },
       { k: 'enc', label: 'Encrypted Master Tapes', icon: 'zzz.enc', tix: 1 },
       { k: 'master', label: 'Master Tapes', icon: 'zzz.master', side: 'standard searches' },
     ],
@@ -97,7 +97,7 @@ export const GAMES = [
     cost: { per: 160, label: 'Astrite' },
     fields: [
       { k: 'astrite', label: 'Astrite', icon: 'wuwa.astrite', pool: true },
-      { k: 'lune', label: 'Lunite', icon: 'wuwa.lune', pool: true, hint: '1:1 into Astrite' },
+      { k: 'lune', label: 'Lunite', icon: 'wuwa.lune', pool: true },
       { k: 'radiant', label: 'Radiant Tide', icon: 'wuwa.radiant', tix: 1 },
       { k: 'lustrous', label: 'Lustrous Tide', icon: 'wuwa.lustrous', side: 'standard convenes' },
       { k: 'forging', label: 'Forging Tide', icon: 'wuwa.forging', side: 'weapon convenes' },
@@ -190,9 +190,10 @@ export function verdict(game, result) {
 
   /*
    * The second line is a running currency readout, in the same shape whatever
-   * the numbers are: every mark still ahead gets "<amount> to <mark>", and once
-   * the last mark is met it becomes "<amount> after <mark>". Tickets are priced
-   * in the same currency, so `held` is what the player owns in one unit.
+   * the numbers are: every mark still ahead gets its own line, "<amount> to
+   * <mark>", and once the last mark is met it becomes "<amount> after <mark>".
+   * Tickets are priced in the same currency, so `held` is what the player owns
+   * in one unit.
    */
   const held = result.pool + result.tickets * game.cost.per;
   const toMark = (mark) => Math.max(0, mark.at * game.cost.per - held);
@@ -205,7 +206,7 @@ export function verdict(game, result) {
     );
 
   const sub = needs.length
-    ? needs.join(' · ')
+    ? needs.join('\n')
     : `${fmt(Math.max(0, held - last.at * game.cost.per))} ${game.cost.label} after ${last.label.toLowerCase()}`;
 
   if (result.state === 'empty') return { title: '', sub };

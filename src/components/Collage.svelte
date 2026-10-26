@@ -1,9 +1,12 @@
 <script>
   import { GAMES, calc, fmt, plural, STATE_WORD } from '../lib/games.js';
-  import { GAME_ART, GAME_LOGO, WUWA_MARK } from '../lib/art.js';
+  import { GAME_ART, GAME_LOGO } from '../lib/art.js';
   import { valuesFor } from '../lib/state.svelte.js';
 
   let { current = 'home', dark = false, compact = false, onpick = () => {} } = $props();
+
+  /** Column spans from the grid below, so `sizes` matches each tile's real width. */
+  const SPAN = { gbf: 7, hsr: 5, ba: 5, zzz: 4, nikke: 4, wuwa: 4 };
 </script>
 
 <div class="collage" class:compact>
@@ -25,13 +28,11 @@
         <img
           class="art"
           src={art.src}
+          srcset={art.srcSet}
+          sizes={`(max-width: 760px) 100vw, ${Math.round((SPAN[game.id] / 12) * 100)}vw`}
           alt=""
           style="--pos: {art.tilePos ?? art.pos}; --pos-m: {art.tilePosMobile ?? art.posMobile}"
         />
-      {:else}
-        <div class="ph-art" aria-hidden="true">
-          <img src={WUWA_MARK} alt="" />
-        </div>
       {/if}
 
       <span class="cap">
@@ -105,16 +106,6 @@
     max-width: none;
     object-fit: cover;
     object-position: var(--pos);
-  }
-
-  .tile .ph-art {
-    position: absolute;
-    inset: 0;
-  }
-
-  .ph-art img {
-    width: 34%;
-    transform: translateY(-14%);
   }
 
   .cap {

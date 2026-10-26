@@ -1,32 +1,23 @@
 <script>
-  import Collage from './Collage.svelte';
-
-  let { route, dark, onTheme } = $props();
-
-  let dialog = $state();
-
-  function openSheet() {
-    if (dialog && !dialog.open) dialog.showModal();
-  }
-
-  function closeSheet() {
-    if (dialog?.open) dialog.close();
-  }
-
-  function onDialogClick(event) {
-    if (event.target === dialog) dialog.close();
-  }
+  let { dark, onTheme, railOpen, onRail } = $props();
 </script>
 
 <header class="top">
   <div class="top-in wrap inner">
     <a class="brand" href="#home" aria-label="Gacha Calc home">Gacha<i>Calc</i></a>
 
-    <button class="all" type="button" aria-haspopup="dialog" aria-controls="all-games" onclick={openSheet}>
+    <button
+      id="rail-toggle"
+      class="menu"
+      type="button"
+      aria-expanded={railOpen}
+      aria-controls="rail"
+      onclick={onRail}
+    >
       <svg viewBox="0 0 14 14" aria-hidden="true">
         <path d="M0 0h6v6H0zM8 0h6v6H8zM0 8h6v6H0zM8 8h6v6H8z" fill="currentColor" />
       </svg>
-      All games
+      Games
     </button>
 
     <div class="seg" role="group" aria-label="Theme">
@@ -35,21 +26,6 @@
     </div>
   </div>
 </header>
-
-<dialog
-  id="all-games"
-  class="sheet"
-  bind:this={dialog}
-  aria-label="All games"
-  onclick={onDialogClick}
->
-  <div class="wrap sheet-inner">
-    <div class="sheet-head">
-      <button class="close" type="button" onclick={closeSheet}>Close</button>
-    </div>
-    <Collage current={route} {dark} compact onpick={closeSheet} />
-  </div>
-</dialog>
 
 <style>
   .top {
@@ -79,7 +55,7 @@
     color: var(--muted);
   }
 
-  .all {
+  .menu {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -94,7 +70,7 @@
     clip-path: polygon(0 0, 100% 0, 100% 70%, calc(100% - 8px) 100%, 0 100%);
   }
 
-  .all svg {
+  .menu svg {
     width: 14px;
     height: 14px;
   }
@@ -118,55 +94,9 @@
     box-shadow: inset 0 -2px 0 var(--ink);
   }
 
-  .sheet {
-    width: min(1100px, 100vw);
-    max-width: 100vw;
-    max-height: 100dvh;
-    margin: auto;
-    padding: 0;
-    border: 0;
-    overflow: auto;
-    overscroll-behavior: contain;
-    background: var(--bg);
-    color: var(--ink);
-  }
-
-  .sheet::backdrop {
-    background: rgb(var(--scrim) / 0.72);
-  }
-
-  .sheet-inner {
-    padding-bottom: 16px;
-  }
-
-  .sheet-head {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-block: 14px;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background: var(--bg);
-  }
-
-  .close {
-    border: 1px solid var(--line);
-    background: var(--panel);
-    padding: 8px 12px;
-    font-weight: 600;
-  }
-
-  @media (max-width: 900px) {
-    .sheet {
-      width: 100vw;
-      height: 100dvh;
-      max-height: 100dvh;
-      margin: 0;
-    }
-
-    .sheet-inner {
-      padding-top: env(safe-area-inset-top, 0px);
+  @media (min-width: 1080px) {
+    .menu {
+      display: none;
     }
   }
 
@@ -175,7 +105,7 @@
       font-size: 17px;
     }
 
-    .all {
+    .menu {
       padding: 8px 10px;
       font-size: 13px;
     }
@@ -188,12 +118,7 @@
 
   @media (max-width: 360px) {
     .top-in {
-      flex-wrap: wrap;
       gap: 8px;
-    }
-
-    .seg {
-      margin-left: auto;
     }
   }
 </style>

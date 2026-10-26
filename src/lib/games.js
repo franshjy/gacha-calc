@@ -74,12 +74,16 @@ export const GAMES = [
     id: 'nikke',
     name: 'Goddess of Victory: Nikke',
     code: 'NIKKE',
+    /* gold mileage is earned one per recruit, so the goal is the exchange and
+       not the mileage count: every recruit, voucher and mileage ticket adds
+       one to the 200 progress */
     unit: ['recruit', 'recruits'],
     star: 'SSR',
-    marks: [{ at: 200, label: 'Gold Mileage' }],
+    marks: [{ at: 200, label: 'Exchange' }],
     cost: { per: 300, label: 'Gems' },
     fields: [
       { k: 'gems', label: 'Gems', icon: 'nikke.gem', pool: true },
+      { k: 'mileage', label: 'Gold Mileage', icon: 'nikke.mileage', tix: 1, nocap: true },
       { k: 'adv', label: 'Advanced Recruit Vouchers', icon: 'nikke.adv', tix: 1 },
       { k: 'vou', label: 'Standard Recruit Vouchers', icon: 'nikke.vou', side: 'standard recruits' },
     ],

@@ -21,6 +21,9 @@
   function caption(field) {
     const n = Number(values[field.k]) || 0;
 
+    /* gold mileage buys the exchange one for one, so the count beside it
+       already says everything a caption would */
+    if (field.nocap) return '';
     if (field.side) return field.side;
     if (field.tix) return `= ${fmt(n * field.tix)} ${plural(game, n * field.tix)}`;
 
@@ -38,6 +41,7 @@
 
     <div class="slots">
       {#each game.fields as field (field.k)}
+        {@const cap = caption(field)}
         <div class="slot">
           <span class="ic">
             <img src={CURRENCY[field.icon]} alt="" width="64" height="64" />
@@ -52,11 +56,13 @@
             spellcheck="false"
             maxlength="7"
             value={values[field.k] || ''}
-            aria-describedby={`cv-${game.id}-${field.k}`}
+            aria-describedby={cap ? `cv-${game.id}-${field.k}` : undefined}
             onfocus={(event) => event.currentTarget.select()}
             oninput={(event) => onInput(event, field)}
           />
-          <span class="cv tn" id={`cv-${game.id}-${field.k}`}>{caption(field)}</span>
+          {#if cap}
+            <span class="cv tn" id={`cv-${game.id}-${field.k}`}>{cap}</span>
+          {/if}
         </div>
       {/each}
     </div>
@@ -109,6 +115,9 @@
     grid-template-columns: 64px 1fr;
     gap: 4px 14px;
     align-items: center;
+    /* a slot without a caption (Nikke gold mileage) still lines its label and
+       input up with its neighbours, which centring the rows would not */
+    align-content: start;
     clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
   }
 

@@ -1,0 +1,5 @@
+# Cloudflare Pages only. GitHub Pages ignores this file (and forces a 600s TTL
+# with no way to override it), so this is the one caching gain CF gives us.
+# Vite fingerprints everything under /assets/, so those can be cached forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

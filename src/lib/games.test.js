@@ -86,6 +86,13 @@ describe('calc', () => {
     expect(result.state).toBe('ready');
     expect(result.pulls - result.max).toBe(20);
   });
+
+  it('counts a gold mileage ticket as one recruit of exchange progress', () => {
+    const result = calc(game('nikke'), { gems: 0, mileage: 20, adv: 0, vou: 0 });
+    expect(result.fromPool).toBe(0);
+    expect(result.tickets).toBe(20);
+    expect(result.pulls).toBe(20);
+  });
 });
 
 describe('verdict', () => {
@@ -123,6 +130,18 @@ describe('verdict', () => {
     const copy = verdict(game('zzz'), calc(game('zzz'), { poly: 16000 }));
     expect(copy.title).toBe('Hard pity covered');
     expect(copy.sub).toBe('12,800 Polychromes to guarantee');
+  });
+
+  it('reads Nikke as progress towards the gold mileage exchange', () => {
+    const copy = verdict(game('nikke'), calc(game('nikke'), { gems: 12000, mileage: 20 }));
+    expect(copy.title).toBe('30% to exchange');
+    expect(copy.sub).toBe('42,000 Gems to exchange');
+  });
+
+  it('calls the Nikke exchange ready on 200 gold mileage alone', () => {
+    const copy = verdict(game('nikke'), calc(game('nikke'), { mileage: 200 }));
+    expect(copy.title).toBe('Exchange ready');
+    expect(copy.sub).toBe('0 Gems after exchange');
   });
 });
 

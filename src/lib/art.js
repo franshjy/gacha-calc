@@ -1,32 +1,25 @@
-import gbfArt from '../assets/gbf/art.webp';
-import gbfArtDark from '../assets/gbf/art-dark.webp';
 import gbfCrystal from '../assets/gbf/currency-crystal.jpg';
 import gbfTicket from '../assets/gbf/currency-draw-ticket.webp';
 import gbfTen from '../assets/gbf/currency-ten-ticket.webp';
 import gbfLogo from '../assets/gbf/logo-simple.webp';
 
-import baArt from '../assets/ba/art.webp';
 import baPyro from '../assets/ba/currency-pyroxene.png';
 import baTicket from '../assets/ba/currency-recruit-ticket.webp';
 import baTen from '../assets/ba/currency-ten-ticket.webp';
 import baLogo from '../assets/ba/logo-display.webp';
 
-import hsrArt from '../assets/hsr/art.webp';
-import hsrArtDark from '../assets/hsr/art-dark.webp';
-import hsrJade from '../assets/hsr/currency-stellar-jade.png';
+import hsrJade from '../assets/hsr/currency-stellar-jade.webp';
 import hsrShard from '../assets/hsr/currency-oneiric-shard.png';
-import hsrSpecial from '../assets/hsr/currency-special-pass.png';
-import hsrPass from '../assets/hsr/currency-pass.png';
+import hsrSpecial from '../assets/hsr/currency-special-pass.webp';
+import hsrPass from '../assets/hsr/currency-pass.webp';
 import hsrLogo from '../assets/hsr/logo-display.webp';
 
-import nikkeArt from '../assets/nikke/art.webp';
-import nikkeGem from '../assets/nikke/currency-gem.png';
-import nikkeAdv from '../assets/nikke/currency-advanced-voucher.png';
-import nikkeVou from '../assets/nikke/currency-voucher.png';
+import nikkeGem from '../assets/nikke/currency-gem.webp';
+import nikkeMileage from '../assets/nikke/currency-gold-mileage.webp';
+import nikkeAdv from '../assets/nikke/currency-advanced-voucher.webp';
+import nikkeVou from '../assets/nikke/currency-voucher.webp';
 import nikkeLogo from '../assets/nikke/logo-display.webp';
 
-import zzzArt from '../assets/zzz/art.webp';
-import zzzArtDark from '../assets/zzz/art-dark.webp';
 import zzzPoly from '../assets/zzz/currency-poly.png';
 import zzzMono from '../assets/zzz/currency-mono.png';
 import zzzEnc from '../assets/zzz/currency-encrypted-tape.png';
@@ -38,46 +31,75 @@ import wuwaLunite from '../assets/wuwa/currency-lunite.webp';
 import wuwaLustrous from '../assets/wuwa/currency-lustrous-tide.webp';
 import wuwaForging from '../assets/wuwa/currency-forging-tide.webp';
 import wuwaRadiant from '../assets/wuwa/currency-radiant-tide.webp';
-import wuwaLogo from '../assets/wuwa/logo-dark.svg';
-import wuwaMark from '../assets/wuwa/logo-icon.svg';
+import wuwaLogo from '../assets/wuwa/logo-display.webp';
+
+/**
+ * Key art ships as a width ladder beside each plate: `art-640.webp`,
+ * `art-960.webp`, `art-1600.webp` (and the same for `art-dark-*`), plus a
+ * native-width rung where the master is not 1600 wide. Vite resolves every rung
+ * to a URL here so the components can hand the browser a real srcset, instead of
+ * one 1600px file that a phone has to download and downscale.
+ */
+const PLATES = import.meta.glob('../assets/*/art*.webp', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
+const RUNGS = {};
+for (const [path, url] of Object.entries(PLATES)) {
+  const match = /\/([a-z]+)\/(art(?:-dark)?)-(\d+)\.webp$/.exec(path);
+  if (!match) continue;
+  (RUNGS[`${match[1]}/${match[2]}`] ??= []).push([Number(match[3]), url]);
+}
+for (const rungs of Object.values(RUNGS)) rungs.sort((a, b) => a[0] - b[0]);
+
+/** The ladder for one plate: largest rung as `src`, every rung as `srcSet`. */
+function plate(game, variant) {
+  const rungs = RUNGS[`${game}/art${variant === 'dark' ? '-dark' : ''}`];
+  if (!rungs?.length) throw new Error(`no art ladder for ${game}/${variant}`);
+  return {
+    src: rungs.at(-1)[1],
+    srcSet: rungs.map(([width, url]) => `${url} ${width}w`).join(', '),
+  };
+}
 
 /**
  * Art carries each game's identity. `baked` marks key art that already
  * includes the game's wordmark, so the layout does not stack a second logo.
  */
-const BA_ART = { src: baArt, pos: '70% 45%', posMobile: '68% 45%', baked: true };
+const BA_ART = { ...plate('ba', 'light'), pos: '70% 45%', posMobile: '68% 45%', baked: true };
 const NIKKE_ART = {
-  src: nikkeArt,
+  ...plate('nikke', 'light'),
   pos: '52% 25%',
   posMobile: '52% 25%',
   tilePos: '52% 0%',
   tilePosMobile: '52% 0%',
   baked: false,
 };
-const NO_ART = { src: null, pos: '50% 50%', posMobile: '50% 50%', baked: false };
 
 export const GAME_ART = {
   gbf: {
-    light: { src: gbfArt, pos: '70% 35%', posMobile: '78% 35%', baked: false },
-    dark: { src: gbfArtDark, pos: '22% 25%', posMobile: '24% 30%', baked: false },
+    light: { ...plate('gbf', 'light'), pos: '70% 35%', posMobile: '78% 35%', baked: false },
+    dark: { ...plate('gbf', 'dark'), pos: '22% 25%', posMobile: '24% 30%', baked: false },
   },
   ba: { light: BA_ART, dark: BA_ART },
   hsr: {
     light: {
-      src: hsrArt,
+      ...plate('hsr', 'light'),
       pos: '80% 35%',
       posMobile: '82% 30%',
       tilePos: '60% 0%',
       tilePosMobile: '60% 0%',
       baked: false,
     },
-    dark: { src: hsrArtDark, pos: '55% 40%', posMobile: '45% 40%', baked: false },
+    dark: { ...plate('hsr', 'dark'), pos: '55% 40%', posMobile: '45% 40%', baked: false },
   },
   nikke: { light: NIKKE_ART, dark: NIKKE_ART },
   zzz: {
-    light: { src: zzzArt, pos: '50% 22%', posMobile: '46% 20%', baked: false },
+    light: { ...plate('zzz', 'light'), pos: '50% 22%', posMobile: '46% 20%', baked: false },
     dark: {
-      src: zzzArtDark,
+      ...plate('zzz', 'dark'),
       pos: '55% 35%',
       posMobile: '50% 38%',
       tilePos: '55% 0%',
@@ -85,7 +107,24 @@ export const GAME_ART = {
       baked: false,
     },
   },
-  wuwa: { light: NO_ART, dark: NO_ART },
+  wuwa: {
+    light: {
+      ...plate('wuwa', 'light'),
+      pos: '82% 55%',
+      posMobile: '86% 45%',
+      tilePos: '80% 40%',
+      tilePosMobile: '82% 45%',
+      baked: false,
+    },
+    dark: {
+      ...plate('wuwa', 'dark'),
+      pos: '58% 35%',
+      posMobile: '60% 28%',
+      tilePos: '62% 20%',
+      tilePosMobile: '62% 20%',
+      baked: false,
+    },
+  },
 };
 
 /** Light-on-dark wordmarks, used on dark caption scrims and the banner plate. */
@@ -97,8 +136,6 @@ export const GAME_LOGO = {
   zzz: zzzLogo,
   wuwa: wuwaLogo,
 };
-
-export const WUWA_MARK = wuwaMark;
 
 export const CURRENCY = {
   'gbf.crystal': gbfCrystal,
@@ -116,6 +153,7 @@ export const CURRENCY = {
   'zzz.enc': zzzEnc,
   'zzz.master': zzzMaster,
   'nikke.gem': nikkeGem,
+  'nikke.mileage': nikkeMileage,
   'nikke.adv': nikkeAdv,
   'nikke.vou': nikkeVou,
   'wuwa.astrite': wuwaAstrite,

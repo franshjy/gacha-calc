@@ -1,0 +1,41 @@
+{
+  "id": "./",
+  "name": "Gacha Calc — banner readiness",
+  "short_name": "Gacha Calc",
+  "description": "Turn saved gacha currency into pulls, spark progress, and pity coverage for Granblue Fantasy, Blue Archive, Honkai: Star Rail, Zenless Zone Zero, Nikke, and Wuthering Waves.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "categories": ["utilities"],
+  "background_color": "#0f1114",
+  "theme_color": "#0f1114",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 <script>
   import AppHeader from './components/AppHeader.svelte';
+  import NavRail from './components/NavRail.svelte';
   import HomePage from './routes/HomePage.svelte';
   import GamePage from './routes/GamePage.svelte';
   import { GAME_BY_ID } from './lib/games.js';
@@ -8,6 +9,7 @@
 
   let route = $state(parseRoute(window.location.hash));
   let systemDark = $state(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  let railOpen = $state(false);
 
   const dark = $derived(app.theme ? app.theme === 'dark' : systemDark);
   const game = $derived(route === HOME_ROUTE ? null : GAME_BY_ID[route]);
@@ -41,6 +43,12 @@
     const root = document.documentElement;
     if (app.theme) root.dataset.theme = app.theme;
     else delete root.dataset.theme;
+
+    // the manifest's theme_color only covers the install splash, and there is
+    // one of it, so the loaded page keeps its own meta in step with the theme
+    // actually being rendered
+    const chrome = document.querySelector('meta[name="theme-color"]');
+    if (chrome) chrome.content = dark ? '#0f1114' : '#e8ebee';
   });
 
   $effect(() => {
@@ -50,7 +58,15 @@
 
 <a class="skip-link" href="#view" onclick={skipToContent}>Skip to content</a>
 
-<AppHeader {route} {dark} onTheme={setTheme} />
+<NavRail {route} bind:open={railOpen} />
+
+<AppHeader
+  {route}
+  {dark}
+  onTheme={setTheme}
+  railOpen={railOpen}
+  onRail={() => (railOpen = !railOpen)}
+/>
 
 <main id="view" tabindex="-1">
   {#if game}

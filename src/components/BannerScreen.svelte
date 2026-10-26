@@ -1,23 +1,22 @@
 <script>
-  import { GAMES, fmt, plural } from '../lib/games.js';
-  import { GAME_ART, GAME_LOGO, WUWA_MARK } from '../lib/art.js';
+  import { fmt, plural } from '../lib/games.js';
+  import { GAME_ART, GAME_LOGO } from '../lib/art.js';
 
   let { game, dark, result, copy } = $props();
 
   const art = $derived(GAME_ART[game.id][dark ? 'dark' : 'light']);
-  const index = $derived(GAMES.indexOf(game));
-  const previous = $derived(GAMES[(index + GAMES.length - 1) % GAMES.length]);
-  const next = $derived(GAMES[(index + 1) % GAMES.length]);
 </script>
 
 <section class="banner" aria-label="Banner readiness">
   <div class="b-art" aria-hidden="true">
     {#if art.src}
-      <img src={art.src} alt="" style="--pos: {art.pos}; --pos-m: {art.posMobile}" />
-    {:else}
-      <div class="ph-art">
-        <img src={WUWA_MARK} alt="" />
-      </div>
+      <img
+        src={art.src}
+        srcset={art.srcSet}
+        sizes="(min-width: 901px) 52vw, 100vw"
+        alt=""
+        style="--pos: {art.pos}; --pos-m: {art.posMobile}"
+      />
     {/if}
   </div>
 
@@ -44,15 +43,6 @@
       <p class="b-sub">{copy.sub}</p>
     </div>
   </div>
-
-  <nav class="pager" aria-label="Other games">
-    <a href={'#' + previous.id} aria-label={'Previous game: ' + previous.name}>
-      <span aria-hidden="true">◀</span> {previous.code}
-    </a>
-    <a href={'#' + next.id} aria-label={'Next game: ' + next.name}>
-      {next.code} <span aria-hidden="true">▶</span>
-    </a>
-  </nav>
 </section>
 
 <style>
@@ -79,11 +69,6 @@
     max-width: none;
     object-fit: cover;
     object-position: var(--pos);
-  }
-
-  .b-art .ph-art {
-    width: 100%;
-    height: 100%;
   }
 
   .b-panel {
@@ -183,33 +168,6 @@
     min-height: 2lh;
   }
 
-  .pager {
-    position: absolute;
-    z-index: 2;
-    right: var(--gutter);
-    bottom: 16px;
-    display: flex;
-    gap: 3px;
-  }
-
-  .pager a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 12px;
-    background: var(--panel);
-    color: var(--ink);
-    text-decoration: none;
-    font: 600 14px/1 var(--font-d);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .pager a:hover {
-    background: var(--ink);
-    color: var(--panel);
-  }
-
   @media (max-width: 900px) {
     .banner {
       display: flex;
@@ -249,17 +207,6 @@
 
     .b-state {
       font-size: 21px;
-    }
-
-    .pager {
-      position: static;
-      display: flex;
-      padding: 0 16px 16px;
-    }
-
-    .pager a {
-      flex: 1;
-      justify-content: center;
     }
   }
 

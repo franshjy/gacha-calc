@@ -18,7 +18,9 @@
   --ph: #cfe3df;
   --ph-fg: #0d2b30;
   --acc: var(--ink);
-  --gutter: max(16px, calc((100vw - 1320px) / 2 + 16px));
+  /* the nav rail is always on above 1080px; below it is a drawer over the page */
+  --rail: 0px;
+  --gutter: max(16px, calc((100vw - var(--rail) - 1320px) / 2 + 16px));
 
   --font-d: 'Chakra Petch', 'Bahnschrift', 'DIN Alternate', sans-serif;
   --font-b: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -91,6 +93,12 @@
   --tint: color-mix(in srgb, var(--acc) 10%, var(--panel));
 }
 
+@media (min-width: 1080px) {
+  :root {
+    --rail: 92px;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -104,6 +112,7 @@ html {
 
 body {
   margin: 0;
+  padding-left: var(--rail);
   min-height: 100dvh;
   background: var(--bg);
   color: var(--ink);
@@ -167,10 +176,6 @@ p {
 
 #view:focus {
   outline: none;
-}
-
-body:has(dialog[open]) {
-  overflow: hidden;
 }
 
 :focus-visible {

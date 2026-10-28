@@ -52,7 +52,7 @@
   });
 
   $effect(() => {
-    document.title = game ? `${game.name} · Gacha Calc` : 'Gacha Calc — banner readiness';
+    document.title = game ? `${game.name} · Gacha Calc` : 'Gacha Calc';
   });
 </script>
 

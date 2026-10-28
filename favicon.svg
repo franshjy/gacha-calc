@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Gacha Calc">
+  <!-- The All-games glyph, promoted to a mark: a 2x2 window of panes with the
+       first pane left hollow. Pure geometry, no font, no colour.
+       Numbers match the raster set drawn alongside it: plate radius 0.219 of
+       the canvas, window width 0.70 (favicons read small, so a touch larger
+       than the 0.64 of icon-512.png), gutter 1.3/14 of the window, hollow
+       border 0.11 of a pane. The hollow pane is an outer white rect plus an
+       inner ink rect rather than a stroked rect, so its outer edge lands
+       exactly on the three filled panes. -->
+  <rect width="512" height="512" rx="112" fill="#0f1114" />
+
+  <!-- hollow: outer edge 76.8 -> 239.36, border 17.88 inward -->
+  <rect x="76.8" y="76.8" width="162.56" height="162.56" fill="#ffffff" />
+  <rect x="94.68" y="94.68" width="126.8" height="126.8" fill="#0f1114" />
+
+  <rect x="272.64" y="76.8" width="162.56" height="162.56" fill="#ffffff" />
+  <rect x="76.8" y="272.64" width="162.56" height="162.56" fill="#ffffff" />
+  <rect x="272.64" y="272.64" width="162.56" height="162.56" fill="#ffffff" />
+</svg>

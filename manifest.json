@@ -1,25 +1,41 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "id": "./",
+  "name": "Gacha Calc",
+  "short_name": "Gacha Calc",
+  "description": "Turn saved gacha currency into pulls, spark progress, and pity coverage for Granblue Fantasy, Blue Archive, Honkai: Star Rail, Zenless Zone Zero, Nikke, and Wuthering Waves.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "categories": ["utilities"],
+  "background_color": "#0f1114",
+  "theme_color": "#0f1114",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
     },
     {
-      "src": "logo192.png",
+      "src": "icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
-      "src": "logo512.png",
+      "src": "icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }

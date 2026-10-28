@@ -1,1 +1,49 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/gacha-calc/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/gacha-calc/logo192.png"/><link rel="manifest" href="/gacha-calc/manifest.json"/><title>React App</title><script defer="defer" src="/gacha-calc/static/js/main.ad0fb19b.js"></script><link href="/gacha-calc/static/css/main.967de229.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Gacha Calc</title>
+    <meta
+      name="description"
+      content="Turn saved gacha currency into pulls, spark progress, and pity coverage for Granblue Fantasy, Blue Archive, Honkai: Star Rail, Zenless Zone Zero, Nikke, and Wuthering Waves."
+    />
+    <link rel="icon" href="/gacha-calc/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/gacha-calc/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/gacha-calc/apple-touch-icon.png" />
+    <link rel="manifest" href="/gacha-calc/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Gacha Calc" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- One theme_color in the manifest, because it can only hold one: it tints
+         the install splash before any page exists. This meta is the loaded-page
+         equivalent; the pre-paint script below sets it, and App.svelte keeps it
+         in step, so the chrome follows the theme the app is actually showing
+         rather than the system preference alone. -->
+    <meta name="theme-color" content="#0f1114" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Chakra+Petch:wght@500;600;700&display=swap"
+    />
+    <script>
+      try {
+        const stored = localStorage.getItem('theme');
+        const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'light' || stored === 'dark') document.documentElement.dataset.theme = stored;
+        const chrome = document.querySelector('meta[name="theme-color"]');
+        if (chrome) chrome.content = dark ? '#0f1114' : '#e8ebee';
+      } catch (error) {
+        /* storage is optional; fall back to the system theme */
+      }
+    </script>
+    <script type="module" crossorigin src="/gacha-calc/assets/index-DzmtZjQl.js"></script>
+    <link rel="stylesheet" crossorigin href="/gacha-calc/assets/index-BzJfGzEn.css">
+  </head>
+  <body>
+    <noscript>Gacha Calc needs JavaScript to run.</noscript>
+    <div id="app"></div>
+  </body>
+</html>

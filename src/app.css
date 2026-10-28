@@ -8,12 +8,15 @@
   --scrim: 12 14 18;
   --on-art: #ffffff;
 
-  --acc-gbf: #2c4669;
-  --acc-ba: #0b6bd0;
-  --acc-hsr: #0a4fc4;
-  --acc-zzz: #2a4aa1;
-  --acc-nikke: #953b3e;
-  --acc-wuwa: #1d6f6a;
+  /* light-theme accents keep each game's own hue and are only darkened until
+     they clear 4.5:1 on the page and on a panel; the earlier navy/blue set
+     lost the identity (HSR pink read as blue, GBF green as navy) */
+  --acc-gbf: #4d6b1c;
+  --acc-ba: #0b6ba8;
+  --acc-hsr: #a83a60;
+  --acc-zzz: #7d5c00;
+  --acc-nikke: #9d3336;
+  --acc-wuwa: #0f6b64;
 
   --ph: #cfe3df;
   --ph-fg: #0d2b30;

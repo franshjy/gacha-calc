@@ -40,7 +40,7 @@
           {#if art.baked}
             <span class="sr">{game.name}</span>
           {:else}
-            <img class="logo" class:invert={game.id === 'gbf'} src={GAME_LOGO[game.id]} alt={game.name} />
+            <img class="logo" src={GAME_LOGO[game.id]} alt={game.name} />
           {/if}
         </span>
 
@@ -147,10 +147,6 @@
     max-width: 52%;
     object-fit: contain;
     object-position: left bottom;
-  }
-
-  .logo.invert {
-    filter: invert(1);
   }
 
   .rd {

@@ -1,13 +1,13 @@
 <script>
   import { fmt, plural } from '../lib/games.js';
-  import { GAME_ART, GAME_LOGO } from '../lib/art.js';
+  import { GAME_ART, GAME_LOGO, GAME_LOGO_INK } from '../lib/art.js';
 
   let { game, dark, result, copy } = $props();
 
   const art = $derived(GAME_ART[game.id][dark ? 'dark' : 'light']);
 </script>
 
-<section class="banner" aria-label="Banner readiness">
+<section class="banner">
   <div class="b-art" aria-hidden="true">
     {#if art.src}
       <img
@@ -21,11 +21,15 @@
   </div>
 
   <div class="b-panel">
-    <h1 class="b-title" class:plate={!dark && !art.baked}>
+    <h1 class="b-title">
       {#if art.baked}
         <span class="sr">{game.name}</span>
       {:else}
-        <img class="b-logo" class:invert={game.id === 'gbf'} src={GAME_LOGO[game.id]} alt={game.name} />
+        <img
+          class="b-logo"
+          src={dark ? GAME_LOGO[game.id] : GAME_LOGO_INK[game.id]}
+          alt={game.name}
+        />
       {/if}
     </h1>
 
@@ -91,11 +95,6 @@
     height: 78px;
   }
 
-  .b-title.plate {
-    background: #111418;
-    padding: 0 14px;
-  }
-
   .b-logo {
     height: 58px;
     width: auto;
@@ -104,9 +103,8 @@
     object-position: left;
   }
 
-  .b-logo.invert {
-    filter: invert(1);
-  }
+  /* GAME_LOGO_INK is the same mark rebuilt as solid ink, so the light panel
+     gets a black-and-white wordmark with no plate and no filter. */
 
   .readout {
     display: grid;
